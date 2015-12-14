@@ -1,0 +1,384 @@
+{% extends "base.html" %}
+{% block content %}
+  Logged in as {{ user_name }}
+  <div class = "lesson">
+    <div class = "flex">
+      <div class = "main_title">
+        Important Concepts
+      </div>
+      <div class = "actions">
+        {% if user_status == "Logout" %}
+          <form action="/logout" method = "post">
+            <input type = "submit" id = "main_button" value = "Logout">
+          </form>
+        {% else %}
+          <form action = "/login" method = "get">
+            <input type = "submit" id = "main_button" value = "Login">
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class ="toc">
+    <h1>
+      Table of Contents
+    </h1>
+    <div class = "lesson">
+      <div class = "section">
+        <ol id = "toc_ol">
+          <li> 
+            <a href ="#lesson1"> Lesson 1: Basics of Web and HTML
+            </a>
+            <ul>
+              <li>
+                <a href = "#www"> World Wide Web
+                </a>
+              </li>
+              <li>
+                <a href = "#html"> HTML
+                </a>
+                <ul>
+                  <li> 
+                    <a href = "#markup"> Markup
+                    </a>
+                  </li>
+                  <li> 
+                    <a href = "#doc"> HTML Document Example
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href = "#lesson2">
+              Lesson 2: Structured HTML Pages and CSS
+            </a>
+            <ul> 
+              <li>
+                <a href = "#css"> CSS
+                </a>
+              </li>
+              <li>
+                <a href = "#dom"> DOM
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href = "#lesson3">
+              Lesson 3: CSS Styling Concepts
+            </a>
+            <ul>
+              <li>
+                <a href = "#boxsize">
+                  Box Sizing
+                </a>
+              </li>
+              <li>
+                <a href = "#boxposition">
+                  Box Positioning
+                </a>
+              </li>
+              <li>
+                <a href ="#dev">
+                  Developer Tools
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href = "#lesson4">
+              Web Development
+            </a>
+            <ul>
+              <li>
+                <a href = "#servers">
+                  Servers
+                </a>
+              </li>
+              <li>
+                <a href = "#workings">
+                  How Web Works
+                </a>
+              </li>
+              <li>
+                <a href = "#webapplications">
+                  Web Applications
+                </a>
+              </li>
+              <li>
+                <a href = "#validation">
+                  HTML Validation
+                </a>
+              </li>
+              <li> 
+                <a href = "#templates">
+                  HTML Templates
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href = "#comments">
+              Comments
+            </a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class = "lesson">
+    <h2 id = "lesson1"> 
+      Lesson 1: Basics of Web and HTML
+    </h2>
+    <div class = "section">
+      <h3 id = "www">
+        World Wide Web
+      </h3>
+        The <b>World Wide Web</b> (<em>www</em>) is an open source 
+        information space where documents and other web resources are 
+        identified by <b>URLs</b> (<em>links</em>), interlinked by 
+        hypertext links, and can be accessed via the <b>Internet</b>. 
+        Basic elements of web are as follows:  
+        <ul>
+          <li>Computer</li>
+          <li>Internet</li>
+          <li>Server</li>
+          <li>HTTP Protocol</li>
+        </ul>
+        When a person goes to a web page like www.google.com, their 
+        computer sends a <b>HTTP</b> request to a <b>server</b>. The 
+        server finds the appropriate <b>HTML</b> document and sends it  
+        back to the user's computer where a web browser interprets the 
+        page and displays it on the user's screen.
+    </div>
+    <div class = "section">
+      <h3 id = "html">
+        HTML
+      </h3>
+        HyperText Markup Language, commonly referred to as HTML, is the  
+        standard markup language used to create web pages. <a href="
+        http://www.w3schools.com/html/default.asp">Click Here</a> to
+        learn about HTML. A typical HTML document consists of:
+        <ul>
+          <li>Text Content</li>
+          <li>Markup</li>
+          <li>References to other documents</li>
+          <li>Links to other pages</li>
+        </ul>
+      <div>
+        <h4 id = "markup"> 
+          Markup
+        </h4>
+          HTML markup consists of several key components, including
+           those called tags (and their attributes), character-based 
+           data types, character references and entity references. HTML 
+            tags most commonly come in pairs like <b>&lt;b&gt;</b>
+          and <b>&lt;/h1&gt;</b>, although some represent empty elements 
+          and so are unpaired, for example <b>&lt;img&gt;</b>.  
+        <h5>
+          Elements
+        </h5>
+        <p>
+          HTML documents imply a structure of nested elements. A typical 
+          element consists of opening tag, text content and closing tag, 
+          for example: 
+          <div class="example">
+            &lt;em&gt; hello &lt;/em&gt;
+          </div>   
+          HTML elements 
+          are either inline or block. Block elements form an "invisible  
+          box" around the content inside of them.
+        <h5>
+          Tag Attributes
+        </h5>
+          Some tags like <b>&lt;img&gt;</b> require modifiers to  
+           describe their functionality. These modifiers are called tag 
+           attributes or just attributes. An attribute either modifies 
+           the default functionality of an element type or provides 
+           functionality to certain element types unable to function 
+           correctly without them. Example:
+          <div class = "example">
+            &lt;img src="source of 
+            image" alt="text"&gt;
+          </div>
+      </div>
+      <h4 id = "doc">
+        HTML Document Example
+      </h4>
+      <div class = "document">
+        &lt;!DOCTYPE HTML&gt;<br>
+        &lt;html&gt;<br>
+        &lt;head&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Title<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/title&gt;<br>
+        &lt;/head&gt;<br>
+        &lt;body&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text Contents<br>
+        &lt;/body&gt;<br>
+        &lt;/html&gt;
+      </div>
+      <br>
+    </div>
+  </div>
+  <div class = "lesson">
+    <h2 id = "lesson2">
+      Lesson 2: Structured HTML Pages and CSS
+    </h2>
+    <div class = "section">
+      <h3 id = "css">
+        CSS
+      </h3>
+      <p>
+        <b>Cascading Style Sheet</b> (CSS) is a style sheet language 
+        used for describing the presentation of a document written in a 
+        markup language. CSS is designed primarily to enable the separation of document content from document presentation, including aspects such as the layout, colors, and fonts. For more information about CSS, please click <a href="http://www.w3schools.com/css/default.asp">here</a>. 
+      </p>
+    </div>
+    <div class = "section">
+      <h3 id = "dom">
+        DOM
+      </h3>
+      <p>
+        The <b>Document Object Model</b> (DOM) is a cross-platform and 
+        language-independent convention for representing and interacting 
+        with objects in HTML, XHTML, and XML documents. The nodes of 
+        every document are organized in a tree structure, called the DOM 
+         tree. Objects in the DOM tree may be addressed and manipulated 
+         by using methods on the objects.<br>
+         The "tree-like structure" comes from the fact that HTML elements can have other elements inside of them. You can draw this relationship like a family tree. My mother had multiple children. So did her mother, and so on...
+        In a browser, this structure shows up as a series of nested boxes. There are boxes inside of boxes inside of boxes, and so on...
+      </p>
+    </div>
+  </div>
+  <div class = "lesson">
+    <h2 id = "lesson3">
+      Lesson 3: CSS Styling Concepts
+    </h2>
+    <div class = "section">
+      <h3 id = "boxsize">
+        Box Sizing
+      </h3>
+      <div class = "flex">
+        <div class = "image">
+          <img src ="bootstrap/img/boxmodel.gif" alt = "text">
+        </div>
+        <div class = "description">
+          HTML elements are boxes and each box has the following four components:
+          <ul>
+            <li>
+              Margin
+            </li>
+            <li>
+              Border
+            </li>
+            <li> 
+              Padding
+            </li>
+            <li>
+              Content
+            </li>
+          </ul>
+          To deal with sizing issues:
+          <ul>
+            <li>
+              Set size in terms of percentage
+            </li>
+            <li>
+              Set box-sizing attribute to border-box for every element
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class = "section">
+      <h3 id = "boxposition">
+        Box Positioning
+      </h3>
+      <b>div</b> is a block element (as opposed to inline element), so they take entire width of page by default. Adding the rule <b> display:flex </b> to the CSS will override the behavior and let <b>divs</b> appear next to each other.
+    </div>
+    <div class = "section">
+      <h3 id = "dev">
+        Developer Tools
+      </h3>
+      Developer tools allows web designers and developers to take a look at the make up of their pages. They are usually built into the browser and do not require additional modules or configuration. The tools are used to see how different boxes are arranged in the html page and also help in making minor adjustments to the html page.
+    </div>
+  </div>
+  <div class = "lesson">
+    <h2 id = "lesson4">
+      Web Development
+    </h2>
+    <div class = "section">
+      <h3 id = "servers">
+        Servers
+      </h3>
+      A server is a computer program or a machine that waits for requests from other machines or software (clients) and responds to them.[a] The purpose of a server is to share data or hardware and software resources among clients.
+    </div>
+    <div class = "section">
+      <h3 id = "workings">
+        How Web Works
+      </h3>
+      When we enter a URL <span id = "courier_new"> http://wwww.example.com/abc/a.html </span> in the browser, first, the browser slices the URL in 3 parts:
+      <ol>
+        <li> <span id = "courier_new"> http://</span>: This part indicates that the document you want to access can be retrieved from web server, which understands the HTTP protocol. 
+        </li>
+        <li> <span id = "courier_new">www.example.com</span>: This is the host name of the computer from which the document can be downloaded. 
+        </li>
+        <li> <span id = "courier_new">/abc/a.html</span>: This is the virtual path of the document in the www.example.com's web server.
+        </li>
+      </ol>
+      Then, the browser contacts a DNS (Domain Name Server) to know the IP address of the computer whose full qualified domain name is www.example.com. The browser establishes a connection channel with the web server on the computer which IP address was given by the DNS server and requests the document on the host which name is www.example.com and which virtual path is /abc/a.html. 
+
+      The server decodes the request and maps the virtual path to a real one, which should match an existing file. The server sends the file to the browser with some useful information such as its last modification time and its MIME type. The MIME type helps the browser decide how to display the received document. In our example, it is a HTML file. So the server sets its MIME type to text/html and the browser understands that it must render it as text.
+  </div>
+  <div class = "section">
+    <h3 id = "webapplications">
+      Web Applications
+    </h3>
+    A web application is a software application that runs on a remote server. In most cases, web browsers are used to access web applications, over a network. Web applications require very little compute power on the client as most of the processing happens on the server and client only displays data. Also, these applications solve some of the compatibility issues.
+  </div>
+  <div class = "section">
+    <h3 id = "validation">
+      HTML Validation
+    </h3>
+    HTML Validation is an important concept that allows unscrupulous usage of HTML documents. Escaping is one such feature where any input from users is first validated by removing all the escape characters so that the text is actually interpreted as text rather than some code or HTML tag.
+  </div>
+  <div class = "section">
+    <h3 id = "templates">
+      HTML Templates
+    </h3>
+    HTML templates is a feature which allows reuse of HTML by using concepts like variable substitution and inheritance. One such environment that allows HTML templates is Jinja environment which can be used in Google App Engine. Using templates, removes all the bulky HTML from the backend code and all the HTML documents are then generated dynamically.
+  </div>
+  <div class = "lesson">
+    <h2>
+      Comments Section
+    </h2>
+    <div class = "section">
+      <div class = "comments_section">
+        <form method = "post" action = "/post">
+          <input type = "text" id = "comment_text" name = "content">
+          <input type = "submit" id = "comment_submit" value = "Submit Comment">
+        </form>
+      </div>
+    </div>
+    <div class = "section">
+      <h3 id = "comments">
+        Comments
+      </h3>
+      {% if comments_list %}
+        {% for comments in comments_list%}
+          {% if comments.user != "Anonymous" %}
+            <i>{{ comments.user }}</i> wrote:
+          {% else %}
+            <i>An anonymous person</i> wrote:
+          {% endif %}
+          <blockquote>{{ comments.content }}</blockquote>
+        {% endfor %}
+      {% else %}
+        No comments posted.
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
