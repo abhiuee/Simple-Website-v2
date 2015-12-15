@@ -354,10 +354,10 @@
       A client like a browser sends a HTTP request (for example: GET and POST) and the server responds with a response message. Examples of GET and POST request and response are shown in the figures below:
       <div class = "flex">
         <div class = "get_post_image">
-          <img src = "bootstrap/img/get.jpg" alt = "text">
+          <img src = "bootstrap/img/get.jpg" alt = "text" width="400" height = "400">
         </div>
         <div class = "get_post_image_2">
-          <img src = "bootstrap/img/post.jpg" alt = "text">
+          <img src = "bootstrap/img/post.jpg" alt = "text" width="400" height="400">
         </div>
       </div>
       <h4 id = "difference">
@@ -420,6 +420,11 @@
           <input type = "submit" id = "comment_submit" value = "Submit Comment">
         </form>
       </div>
+      {% if invalid_comment %}
+        <div style = "color:red">
+          Please enter a valid comment. A valid comment is a non empty text with some characters.
+        </div>
+      {% endif %}
     </div>
     <div class = "section">
       <h3 id = "comments">

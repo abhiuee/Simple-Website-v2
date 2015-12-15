@@ -59,13 +59,14 @@ class MainPage(Handler):
             ancestor=comments_key(comments_database)).order(-Comment.date)
         number_of_comments = 10
         comments_list = comments_query.fetch(number_of_comments)
+        invalid_comment = self.request.get("invalid_comment")
         global current_user
         if current_user == "Anonymous":
             user_status = "Login"
         else:
             user_status = "Logout"
 
-        self.render("my_first.html", user_status = user_status, user_name = current_user, comments_list = comments_list)
+        self.render("my_first.html", user_status = user_status, user_name = current_user, comments_list = comments_list, invalid_comment = invalid_comment)
 
 class LoginPageLoader(Handler):
     """ Class for /login """
@@ -90,9 +91,11 @@ class PostPageLoader(Handler):
         comments_data = Comment(parent=comments_key(comments_database))
         comments_data.user = current_user
         comments_data.content = self.request.get("content")
-        if comments_data.content:
+        if comments_data.content and comments_data.content.strip():
             comments_data.put()
-        self.redirect("/#comments")
+            self.redirect("/#comments")
+        else:
+            self.redirect("/?invalid_comment=true#comments")
 
 class LogOutPageLoader(Handler):
     """ Class for /logout """
