@@ -10,6 +10,20 @@ h1 {
 	text-align:center;
 }
 
+.get_post_image {
+	margin-top:50px;
+	margin-bottom:50px;
+	margin-left:200px;
+	width:640px;
+	height:480px;
+}
+.get_post_image_2 {
+	margin-top:50px;
+	margin-bottom:70px;
+	margin-left:0px;
+	width:640px;
+	height:480px;
+}
 #toc_ol {
 	font-size:22px;
 	line-height:30px;

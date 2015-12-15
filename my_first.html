@@ -347,9 +347,19 @@
       <h4 id = "get_post">
         GET and POST
       </h4>
-      POST is one of many request methods supported by the HTTP protocol used by the web. By design, the POST request method requests that a web server accepts and stores the data enclosed in the body of the request message. It is often used when uploading a file or submitting a completed web form. <br>
+      POST is one of many request methods supported by the HTTP protocol used by the web. By design, the POST request method requests that a web server accepts and stores the data enclosed in the body of the request message. It is often used when uploading a file or submitting a completed web form. <br><br>
 
-      The HTTP GET request method is designed to retrieve information from the server. As part of a GET request, some data can be passed within the URL's query string, specifying for example search terms, date ranges, or other information that defines the query.
+      The HTTP GET request method is designed to retrieve information from the server. As part of a GET request, some data can be passed within the URL's query string, specifying for example search terms, date ranges, or other information that defines the query. <br>
+
+      A client like a browser sends a HTTP request (for example: GET and POST) and the server responds with a response message. Examples of GET and POST request and response are shown in the figures below:
+      <div class = "flex">
+        <div class = "get_post_image">
+          <img src = "bootstrap/img/get.jpg" alt = "text">
+        </div>
+        <div class = "get_post_image_2">
+          <img src = "bootstrap/img/post.jpg" alt = "text">
+        </div>
+      </div>
       <h4 id = "difference">
         Differences between GET and POST
       </h4>
@@ -376,6 +386,7 @@
           <td>Relatively more secure and can be used for sending passwords</td>
         </tr>
       </table>
+    </div>
   </div>
   <div class = "section">
     <h3 id = "webapplications">
@@ -387,13 +398,16 @@
     <h3 id = "validation">
       HTML Validation
     </h3>
-    HTML Validation is an important concept that allows unscrupulous usage of HTML documents. Escaping is one such feature where any input from users is first validated by removing all the escape characters so that the text is actually interpreted as text rather than some code or HTML tag.
+    HTML Validation is an important concept that allows unscrupulous usage of HTML documents. Escaping is one such feature where any input from users is first validated by removing all the escape characters so that the text is actually interpreted as text rather than some code or HTML tag. <br><br>
+    The goal of web form validation is to ensure that the user provided necessary and properly formatted information needed to successfully complete an operation. In server-side validation, information is being sent to the server and validated using one of server-side languages. The user needs to submit the information so that it can be validated on the server side. For better user-experience, client-side validation is required. This validation is done on client side using script languages such as Javascript. The user's data can be validated as they type. <br><br>
+    Validating input is important to have user specify information required to access a web page (for example password and user_name should be required fields), formatted information (for example user_name should contain only alphabets and digits), escaping (remove escape characters from input) etc. Validation is a very important way to ensure security. Input filters which help in rejecting shell injection or other types of scrupulous scripting. Rejecting access to blacklisted users or allowing access to only authorized and registered users. 
   </div>
   <div class = "section">
     <h3 id = "templates">
       HTML Templates
     </h3>
-    HTML templates is a feature which allows reuse of HTML by using concepts like variable substitution and inheritance. One such environment that allows HTML templates is Jinja environment which can be used in Google App Engine. Using templates, removes all the bulky HTML from the backend code and all the HTML documents are then generated dynamically.
+    HTML templates is a feature which allows reuse of HTML by using concepts like variable substitution and inheritance. One such environment that allows HTML templates is Jinja environment which can be used in Google App Engine. Using templates, removes all the bulky HTML from the backend code and all the HTML documents are then generated dynamically. <br><br>
+    Programmers use HTML templates to ensure reusability of the HTML that needs to be remain same for different web pages. The template based programming allows simplicity. In a server-side system like Jinja, programmers are able to avoid repetition and reduce time spent coding and debugging by dynamically generating the HTML pages based on the state of the system and the user inputs. These templates systems also provide debug systems that can integrate compile and runtime errors into the server-side language console. Since reuse is performed by using techniques like inheritance and variable substitution, the chances of incurring typos are reduced and common pieces for every page are properly displayed.
   </div>
   <div class = "lesson">
     <h2>
