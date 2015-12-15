@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
   Logged in as {{ user_name }}
+  {% if error_code %}
+    <br>Location error code {{error_code}}
+  {% endif %}
   <div class = "lesson">
     <div class = "flex">
       <div class = "main_title">
@@ -127,6 +130,23 @@
               <li> 
                 <a href = "#templates">
                   HTML Templates
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href = "#lesson5">
+              Lesson 5: Additional Topics
+            </a>
+            <ul>
+              <li>
+                <a href = "#javascript">
+                  Javascript
+                </a>
+              </li>
+              <li>
+                <a href = "#api">
+                  APIs
                 </a>
               </li>
             </ul>
@@ -410,14 +430,62 @@
     Programmers use HTML templates to ensure reusability of the HTML that needs to be remain same for different web pages. The template based programming allows simplicity. In a server-side system like Jinja, programmers are able to avoid repetition and reduce time spent coding and debugging by dynamically generating the HTML pages based on the state of the system and the user inputs. These templates systems also provide debug systems that can integrate compile and runtime errors into the server-side language console. Since reuse is performed by using techniques like inheritance and variable substitution, the chances of incurring typos are reduced and common pieces for every page are properly displayed.
   </div>
   <div class = "lesson">
+    <h2 id = "lesson5">
+      Lesson 5: Additional Topics 
+    </h2>
+    In this section, I will explain the topics Javascript and APIs that I have explored further during this course. To illustrate the concepts, I added a feature that allows user to optionally provide their location. To do so, I created a save location check box which when checked calls a javascript function that logs in the user's location in latitudes and longitudes by using the geolocation feature. Once the coordinates are logged in and the user presses submit comments button, the python script uses google maps api and gets a JSON that has the location corresponding to the coordinates specified. The JSON is parsed and city and country is identified for the user.
+    <div class = "section">
+      <h3 id = "javascript">
+        Javascript
+      </h3>
+      JavaScript is a high-level, dynamic, untyped, and interpreted programming language. Alongside HTML and CSS, it is one of the three essential technologies of World Wide Web content production; the majority of websites employ it and it is supported by all modern web browsers without plug-ins. JavaScript runs on the client side of the web, which can be used to design / program how the web pages behave on the occurrence of an event. To use javascript functionality in HTML, you can either source it from a separate file or you can write it inline. To source it from a separate file, the syntax in HTML is <span id = "courier_new">&lt;script src = "js location"&gt;&lt;/script&gt;</span>. For inline use, the syntax is similar <span id = "courier_new">&lt;script&gt;js constructs&lt;/script&gt;</span>. <br><br>
+      JavaScript statements are composed of: values, operators, expressions, keywords, and comments. JS can be used to display output in different ways like, append or prepend to an element in HTML, create a pop up box. JS functions can be provided as actions to different HTML elements. For example, in <span id = "courier_new">&lt;input type = "checkbox" onclick = clicked(this)&gt;</span>, clicked(this) javascript function will be called when the user toggles the checkbox. Following are some of the resources I used to learn about JS:
+      <ul>
+        <li>
+          <a href= "https://en.wikipedia.org/wiki/JavaScript">Wikipedia</a>: This article explains the basics of JS, its history, uses etc.
+        </li>
+        <li>
+          <a href="http://www.w3schools.com/js/">W3 Schools</a>: Very good website to learn the syntax of JS and play with small JS constructs.
+        </li>
+        <li>
+          <a href = "https://www.javascript.com/"> Javascript.com</a>: Learn JS interactively on this website.
+        </li>
+      </ul>
+    </div>
+    <div class = "section">
+      <h3 id = "api">
+        APIs
+      </h3>
+      In computer programming, an application programming interface (API) is a set of routines, protocols, and tools for building software applications. An API expresses a software component in terms of its operations, inputs, outputs, and underlying types, defining functionalities that are independent of their respective implementations, which allows definitions and implementations to vary without compromising the interface. A good API makes it easier to develop a program by providing all the building blocks, which are then put together by the programmer. <br><br>
+      One of the most frequently used API on web is Google Maps API. This API provides a way to communicate with Google Maps Servers and ask for location based information. The API communicates with the client by writing a JSON or an XML file which can be parsed to understand the results. APIs on web allow different services to communicate with each other and obliterate the need for writing same service which might have already been written and maintained by somebody else. Big corporations like Google and Twitter, provide developers different APIs to create better web applications. Another example of APIs would be the common login feature provided by Facebook. The Facebook login feature allows small website creaters to use Facebook credentials to authenticate the user, instead of themselves creating a login feature. Also, it helps users as commonly used logins like Facebook and Google can now be used to access other websites. Some resources that are interesting to learn about APIs are as follows:
+      <ul>
+        <li>
+          <a href = "https://en.wikipedia.org/wiki/Application_programming_interface"> Wikipedia</a>: A general introduction of the meaning and importance of APIs in programming.
+        </li>
+        <li>
+          <a href= "https://www.publicapis.com/">Public APIs</a>: A directory of public APIs that can be used to make your web applications better.
+        </li>
+        <li>
+          <a href="http://www.w3schools.com/googleapi/">W3 Schools</a>: An instructive tutorial on Google Maps API.
+        </li>
+        <li>
+          <a href = "https://developers.google.com/maps/documentation/geocoding/intro"> Google Maps Geocode</a>: Google maps geocode feature which was used in this website to find location form latitudes and longitudes.
+        </li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div class = "lesson">
     <h2>
       Comments Section
     </h2>
     <div class = "section">
       <div class = "comments_section">
-        <form method = "post" action = "/post">
+        <form method = "post" action = "/post" name = "comment_form">
           <input type = "text" id = "comment_text" name = "content">
+          <input type = "hidden" id = "hidden_location" name = "location_tag" value = "">
           <input type = "submit" id = "comment_submit" value = "Submit Comment">
+          <input type = "checkbox" id = "save_location" value = "True" name = "locate" onclick = clicked(this)> Save Location
         </form>
       </div>
       {% if invalid_comment %}
@@ -433,10 +501,21 @@
       {% if comments_list %}
         {% for comments in comments_list%}
           {% if comments.user != "Anonymous" %}
-            <i>{{ comments.user }}</i> wrote:
+            <i>{{ comments.user }}</i>
           {% else %}
-            <i>An anonymous person</i> wrote:
+            <i>An anonymous person</i>
           {% endif %}
+          {% if comments.city %}
+             from <i>{{comments.city}}</i>
+            {% if comments.country %}
+                ,<i>{{comments.country}}</i>
+            {% endif %}
+          {% else %}
+            {% if comments.country %}
+              from <i>{{comments.country}}</i>
+            {% endif %}
+          {% endif %}
+           wrote:
           <blockquote>{{ comments.content }}</blockquote>
         {% endfor %}
       {% else %}

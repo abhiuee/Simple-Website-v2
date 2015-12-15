@@ -8,17 +8,43 @@ import os
 
 import jinja2
 import webapp2
-
+import urllib2
 from google.appengine.ext import ndb
+import httplib
+import json
+from google.appengine.api import urlfetch
 
+urlfetch.set_default_fetch_deadline(600)
 # Set up jinja environment
 template_dir = os.path.dirname(__file__)
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                 autoescape = True)
-
+# Google API 
+google_url = "http://ipinfo.io/"
 # Create global variables for database and current user
 comments_database = 'comments'
 current_user = "Anonymous"
+
+def get_city_country(latlng):
+    """ get city and country from latitude and longitude"""
+    url = google_url + latlng + "/json"
+    print url
+    error_code = 0
+    try:
+        content = urllib2.urlopen(url).read()
+    except (urllib2.URLError, httplib.HTTPException):
+        error_code = 2
+        return None, None
+    city = None
+    country = None
+    data = json.loads(content)
+    if data:
+        if "city" in data:
+            city = data["city"]
+        if "country" in data:
+            country = data["country"]
+    
+    return city, country, error_code
 
 def valid_user_name(user_name):
     """ Validate user name. username with digits and alphabets allowed """
@@ -38,6 +64,8 @@ class Comment(ndb.Model):
     user = ndb.StringProperty(indexed = False)
     content = ndb.StringProperty(indexed=False)
     date = ndb.DateTimeProperty(auto_now_add=True)
+    city = ndb.StringProperty(indexed = False)
+    country = ndb.StringProperty(indexed = False)
 
 
 class Handler(webapp2.RequestHandler):
@@ -60,13 +88,15 @@ class MainPage(Handler):
         number_of_comments = 10
         comments_list = comments_query.fetch(number_of_comments)
         invalid_comment = self.request.get("invalid_comment")
+        error_code = self.request.get("error")
+        print "Error code is " + error_code
         global current_user
         if current_user == "Anonymous":
             user_status = "Login"
         else:
             user_status = "Logout"
 
-        self.render("my_first.html", user_status = user_status, user_name = current_user, comments_list = comments_list, invalid_comment = invalid_comment)
+        self.render("my_first.html", user_status = user_status, user_name = current_user, comments_list = comments_list, invalid_comment = invalid_comment, error_code = error_code)
 
 class LoginPageLoader(Handler):
     """ Class for /login """
@@ -91,6 +121,12 @@ class PostPageLoader(Handler):
         comments_data = Comment(parent=comments_key(comments_database))
         comments_data.user = current_user
         comments_data.content = self.request.get("content")
+        locate = self.request.get("location_tag")
+        error_code = 0
+        if locate != "":
+            city, country, error_code = get_city_country(self.request.remote_addr)
+            comments_data.city = city
+            comments_data.country = country
         if comments_data.content and comments_data.content.strip():
             comments_data.put()
             self.redirect("/#comments")
