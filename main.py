@@ -20,6 +20,14 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
 comments_database = 'comments'
 current_user = "Anonymous"
 
+def valid_user_name(user_name):
+    """ Validate user name. username with digits and alphabets allowed """
+    for ch in user_name:
+        if not (ch.isdigit() or ch.isalpha()):
+            print "Return False"
+            return False
+    return True
+
 def comments_key(database=comments_database):
     """Constructs a Datastore key for a comments entity.
     """
@@ -49,7 +57,8 @@ class MainPage(Handler):
     def get(self):
         comments_query = Comment.query(
             ancestor=comments_key(comments_database)).order(-Comment.date)
-        comments_list = comments_query.fetch(5)
+        number_of_comments = 10
+        comments_list = comments_query.fetch(number_of_comments)
         global current_user
         if current_user == "Anonymous":
             user_status = "Login"
@@ -67,10 +76,12 @@ class LoginPageLoader(Handler):
         user_name = self.request.get("user_name")
         if not user_name:
             self.render("login.html", text = "Please enter a name in the text box")
-        else:
+        elif valid_user_name(user_name):
             global current_user
             current_user = user_name
             self.redirect("/")
+        else:
+            self.render("login.html", text = "Please enter a valid name in the text box. A valid name is a combination of digits and alphabets")
 
 
 class PostPageLoader(Handler):

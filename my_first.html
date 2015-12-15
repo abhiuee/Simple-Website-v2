@@ -101,6 +101,18 @@
                 <a href = "#workings">
                   How Web Works
                 </a>
+                <ul>
+                  <li>
+                    <a href = "#get_post">
+                      GET and POST
+                    </a>
+                  </li>
+                  <li>
+                    <a href = "#difference">
+                      Differences between GET and POST
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li>
                 <a href = "#webapplications">
@@ -329,9 +341,41 @@
         <li> <span id = "courier_new">/abc/a.html</span>: This is the virtual path of the document in the www.example.com's web server.
         </li>
       </ol>
-      Then, the browser contacts a DNS (Domain Name Server) to know the IP address of the computer whose full qualified domain name is www.example.com. The browser establishes a connection channel with the web server on the computer which IP address was given by the DNS server and requests the document on the host which name is www.example.com and which virtual path is /abc/a.html. 
+      Then, the browser contacts a DNS (Domain Name Server) to know the IP address of the computer whose full qualified domain name is www.example.com. The browser establishes a connection channel with the web server on the computer which IP address was given by the DNS server and requests the document using a GET request on the host which name is www.example.com and which virtual path is /abc/a.html. 
 
       The server decodes the request and maps the virtual path to a real one, which should match an existing file. The server sends the file to the browser with some useful information such as its last modification time and its MIME type. The MIME type helps the browser decide how to display the received document. In our example, it is a HTML file. So the server sets its MIME type to text/html and the browser understands that it must render it as text.
+      <h4 id = "get_post">
+        GET and POST
+      </h4>
+      POST is one of many request methods supported by the HTTP protocol used by the web. By design, the POST request method requests that a web server accepts and stores the data enclosed in the body of the request message. It is often used when uploading a file or submitting a completed web form. <br>
+
+      The HTTP GET request method is designed to retrieve information from the server. As part of a GET request, some data can be passed within the URL's query string, specifying for example search terms, date ranges, or other information that defines the query.
+      <h4 id = "difference">
+        Differences between GET and POST
+      </h4>
+      <div style = "text-align:center">
+      <table border="1">
+        <tr>
+          <td><b>GET</b></td>
+          <td><b>POST</b></td>
+        </tr>
+        <tr>
+          <td>Query string is sent in the URL</td>
+          <td>Query string is sent in the HTTP message body of the request</td>
+        </tr>
+        <tr>
+          <td>Can have length restrictions</td>
+          <td>Usually don't have length restrictions</td>
+        </tr>
+        <tr>
+          <td>Can be cached and bookmarked</td>
+          <td>Can never be cached and bookmarked</td>
+        </tr>
+        <tr>
+          <td>Should not be used when sending passwords or other sensitive information</td>
+          <td>Relatively more secure and can be used for sending passwords</td>
+        </tr>
+      </table>
   </div>
   <div class = "section">
     <h3 id = "webapplications">

@@ -34,6 +34,11 @@ body {
 	display:inline-block;
 }
 
+table{
+	display:inline-block;
+	table-layout: fixed;
+	width:640px;
+}
 #comment_submit{
 	margin:10px;
 	font-size:20px;
